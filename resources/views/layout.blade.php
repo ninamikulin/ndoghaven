@@ -1,13 +1,13 @@
-@extends('layouts.layout-auth')
+@extends('layouts.layout')
 @section('content')
 <header>
     <h2><strong><text class="fas fa-paw"> </text> Reset password </strong></h2>
 </header>
 <div class="container" style="text-align: center;">
     <section>
-        <form method="POST" action="{{ route('password.update') }}">
+        <form method="POST" action="">
             @csrf
-            <input type="hidden" name="token" value="{{ $token }}">
+            <input type="hidden" name="token" value="">
             <div class="row gtr-25 container-fluid">
                 <div class="col-6-align-center">
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" placeholder="E-mail Address" required autocomplete="email" autofocus>

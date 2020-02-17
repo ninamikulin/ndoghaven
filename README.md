@@ -179,11 +179,13 @@ To create a new article 2 `ArticleController` methods are used:
 - `edit` -> returns view with form to edit an existing article  
 
 <details> 
-<summary> update -> persists the changes to the article</summary>  
+<summary> update -> persists the changes to the article  </summary>  
+
 - validates the request attributes  
 - resizes the images to thumbnail and banner size and saves them in the public folder  
 - persists the new article in the DB  
 - image can not be changed  
+
 
 ```php
 // /app/Http/Controllers/ArticleController.php 
@@ -210,7 +212,7 @@ To create a new article 2 `ArticleController` methods are used:
 ### Delete
 
 <details> 
-<summary> destroy-> deletes the record from the DB</summary>
+<summary> destroy-> deletes the record from the DB  </summary>
 
 ```php
 // /app/Http/Controllers/ArticleController.php
@@ -255,11 +257,11 @@ public function destroy(Article $article)
 
 </details>
 
-## Image resizing and cropping
+## Image resizing and cropping  
 
-For image resizing and cropping the [Intervention Image library](http://image.intervention.io/getting_started/installation) was used. 
+For image resizing and cropping the [Intervention Image library](http://image.intervention.io/getting_started/installation) was used.  
 
-<details><summary> Resize method</summary>
+<details><summary> Resize method  </summary>
 
 ```php
 // /app/Http/Controllers/ArticleController.php
@@ -275,7 +277,7 @@ public function resizeImage($path, $width, $height)
 } 
 ```
 </details>
-<details><summary> Crop method</summary>
+<details><summary> Crop method  </summary>
 
 ```php
 // /app/Http/Controllers/ArticleController.php
@@ -290,7 +292,7 @@ public function cropImage($path, $width, $height)
 ```
 
 </details>
-<details><summary>Resize and crop image when creating new article</summary>
+<details><summary>Resize and crop image when creating new article  </summary>
 
 ```php
 // /app/Http/Controllers/ArticleController.php
@@ -347,7 +349,7 @@ For image resizing and cropping the [Trix Editor](https://github.com/Te7a-Houdin
 
 </details>
 <details>
-<summary>Store the content of the field as rich text</summary>
+<summary>Store the content of the field as rich text  </summary>
 
 ```php
 // /app/Http/Controllers/ArticleController.php
@@ -357,7 +359,7 @@ $attributes['article-trixFields'] = request('article-trixFields');
 ```
 </details>
 <details>
-<summary>Display the content of the field as rich text</summary>
+<summary>Display the content of the field as rich text  </summary>
 
 ```html
 <!-- /resources/views/articles/show.blade.php-->
@@ -370,7 +372,8 @@ $attributes['article-trixFields'] = request('article-trixFields');
 
 ## Eloquent relationships
 
-<details><summary>User</summary>
+<details><summary>User  </summary>
+
 - hasMany Articles  
 
 ```php
@@ -382,9 +385,9 @@ $attributes['article-trixFields'] = request('article-trixFields');
 }
 ```
 </details>
-<details><summary>Article</summary>
+<details><summary>Article  </summary>
 
-- belongsTo one User  
+- belongsTo one User   
 
 ```php
 // belongs to one user
@@ -393,6 +396,7 @@ public function user()
    return $this->belongsTo(User::class);
 }
 ```
+
 - belongsTo one Tag  
 ```php
 //belongs to many Tags
@@ -403,7 +407,8 @@ public function tags()
 ```
 
 </details>
-<details><summary>Tag</summary>
+<details><summary>Tag  </summary>
+
 - hasMany Articles
 
 ```php
@@ -416,7 +421,7 @@ public function articles()
 </details>
 
 
-## Middleware
+## Middleware  
 
 All users must be authenticated to view website - Laravel's `auth middleware` has been added to all controllers except the ones handling authorization.  
 

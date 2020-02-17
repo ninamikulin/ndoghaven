@@ -255,7 +255,7 @@ public function destroy(Article $article)
 
 </details>
 
-### Image resizing and cropping
+## Image resizing and cropping
 
 For image resizing and cropping the [Intervention Image library](http://image.intervention.io/getting_started/installation) was used. 
 
@@ -329,7 +329,7 @@ public function cropImage($path, $width, $height)
 ```
 </details>
 
-### Rich text editor
+## Rich text editor
 
 For image resizing and cropping the [Trix Editor](https://github.com/Te7a-Houdini/laravel-trix) was used. 
 
@@ -368,7 +368,7 @@ $attributes['article-trixFields'] = request('article-trixFields');
 
 </details>
 
-### Eloquent relationships
+## Eloquent relationships
 
 <details><summary>User</summary>
 - hasMany Articles  
@@ -416,7 +416,7 @@ public function articles()
 </details>
 
 
-### Middleware
+## Middleware
 
 All users must be authenticated to view website - Laravel's `auth middleware` has been added to all controllers except the ones handling authorization.  
 
@@ -451,7 +451,7 @@ class checkIfAdminOrAuthUser
 ```
 </details>
 
-### Policy
+## Policy
 
 <details><summary>Article policy -> only auth users and admin can edit and delete an article</summary>
 

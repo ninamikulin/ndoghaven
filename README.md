@@ -49,7 +49,6 @@ Create basic Laravel auth:
 <details><summary>returns a random dog fact every time the homepage is loaded</summary>
 
 ```php
-
 // /app/Http/Controllers/HomeController.php
 
 //calls the api and returns the content of the response
@@ -68,7 +67,6 @@ public function getDogFact($method, $url)
 ```
 
 ```php
-
 // /app/Http/Controllers/HomeController.php
 
 // returns a random dog fact
@@ -135,7 +133,7 @@ To create a new article 2 `ArticleController` methods are used:
 <summary>view all articles - HomeController: </summary>
 
 ```php
-/app/Http/Controllers/HomeController.php
+// /app/Http/Controllers/HomeController.php
 
 public function index()
     {   
@@ -153,7 +151,7 @@ public function index()
 <summary>show article - ArticleController  </summary>
 
 ```php
-/app/Http/Controllers/ArticleController.php
+// /app/Http/Controllers/ArticleController.php
 
 // shows article
 public function show(Article $article)
@@ -188,7 +186,7 @@ To create a new article 2 `ArticleController` methods are used:
 - image can not be changed  
 
 ```php
-// /app/Http/Controllers/ArticleController.php
+// /app/Http/Controllers/ArticleController.php 
 
 // updates the Article model instance
     public function update(Article $article)
@@ -215,7 +213,7 @@ To create a new article 2 `ArticleController` methods are used:
 <summary> destroy-> deletes the record from the DB</summary>
 
 ```php
-/app/Http/Controllers/ArticleController.php
+// /app/Http/Controllers/ArticleController.php
 public function destroy(Article $article)
     {
     	$article->delete();
@@ -228,7 +226,7 @@ public function destroy(Article $article)
 <details><summary>Modal to confirm delete</summary>
 
 ```html 
-/resources/views/articles/show.blade.php
+<!-- /resources/views/articles/show.blade.php -->
 
 <!-- jQuery Script - <head> of HTML-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
@@ -295,7 +293,7 @@ public function cropImage($path, $width, $height)
 <details><summary>Resize and crop image when creating new article</summary>
 
 ```php
-/app/Http/Controllers/ArticleController.php
+// /app/Http/Controllers/ArticleController.php
 
 // persists new article 
     public function store(Request $request)
@@ -389,7 +387,7 @@ $attributes['article-trixFields'] = request('article-trixFields');
 - belongsTo one User  
 
 ```php
-//belongs to one user
+// belongs to one user
 public function user()
 {
    return $this->belongsTo(User::class);

@@ -11,14 +11,26 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Auth::routes();
 
-#Route::get('/home', 'HomeController@index')->name('home');
+// Home
+Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/home', function () {
-    return view('home');
-});
+
+// Articles
+Route::get('/articles/create', 'ArticleController@create');
+Route::post('/articles', 'ArticleController@store');
+Route::get('/articles/{article}', 'ArticleController@show');
+Route::get('/articles/{article}/edit', 'ArticleController@edit');
+Route::put('/articles/{article}', 'ArticleController@update');
+Route::delete('/articles/{article}', 'ArticleController@destroy');
+
+// Tags
+Route::get('/categories/{tag}', 'ArticlesTagController@index');
+
+// User Profile
+Route::get('/profile/{user}', 'UserController@show');
+Route::get('/profile/{user}/edit', 'UserController@edit');
+Route::put('/profile/{user}', 'UserController@update');
+Route::get('/profile/{user}/articles', 'UserController@showArticles');

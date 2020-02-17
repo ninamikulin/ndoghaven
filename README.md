@@ -85,10 +85,11 @@ To create a new article 2 `ArticleController` methods are used:
 - `create` -> returns view with form to create new article 
 
 <details> 
-<summary>  store -> persists the new article in the DB  </summary>  
-- validates the request attributes
-- resizes the images to thumbnail and banner size and saves them in the public folder
-- persists the new article in the DB
+<summary>  store -> persists the new article in the DB  </summary>
+
+- validates the request attributes  
+- resizes the images to thumbnail and banner size and saves them in the public folder  
+- persists the new article in the DB  
 
 ```php
 // /app/Http/Controllers/ArticleController.php
@@ -149,7 +150,7 @@ public function index()
 ```
 </details>
 <details>
-<summary>show  article - ArticleController</summary>
+<summary>show article - ArticleController  </summary>
 
 ```php
 /app/Http/Controllers/ArticleController.php
@@ -162,7 +163,8 @@ public function show(Article $article)
 ```
 </details>
 <details>
-<summary>display pagination in view </summary>
+<summary>display pagination in view  </summary>
+
 ```html
 @if (!empty($articles->links()))
 <div class="mt-3">
@@ -176,14 +178,14 @@ public function show(Article $article)
 
 To create a new article 2 `ArticleController` methods are used:
 
-- `edit` -> returns view with form to edit an existing article
+- `edit` -> returns view with form to edit an existing article  
 
 <details> 
 <summary> update -> persists the changes to the article</summary>  
-- validates the request attributes
-- resizes the images to thumbnail and banner size and saves them in the public folder
-- persists the new article in the DB
-- image can not be changed
+- validates the request attributes  
+- resizes the images to thumbnail and banner size and saves them in the public folder  
+- persists the new article in the DB  
+- image can not be changed  
 
 ```php
 // /app/Http/Controllers/ArticleController.php
@@ -210,7 +212,7 @@ To create a new article 2 `ArticleController` methods are used:
 ### Delete
 
 <details> 
-<summary>destroy-> deletes the record from the DB</summary>
+<summary> destroy-> deletes the record from the DB</summary>
 
 ```php
 /app/Http/Controllers/ArticleController.php
@@ -259,7 +261,7 @@ public function destroy(Article $article)
 
 For image resizing and cropping the [Intervention Image library](http://image.intervention.io/getting_started/installation) was used. 
 
-<details><summary> resize method</summary>
+<details><summary> Resize method</summary>
 
 ```php
 // /app/Http/Controllers/ArticleController.php
@@ -275,7 +277,7 @@ public function resizeImage($path, $width, $height)
 } 
 ```
 </details>
-<details><summary> crop method</summary>
+<details><summary> Crop method</summary>
 
 ```php
 // /app/Http/Controllers/ArticleController.php
@@ -344,6 +346,7 @@ For image resizing and cropping the [Trix Editor](https://github.com/Te7a-Houdin
    <trix-editor class="trix-content" input="trix-content" id="trix-content"></trix-editor>                        
 </div>
 ```
+
 </details>
 <details>
 <summary>Store the content of the field as rich text</summary>
@@ -364,15 +367,15 @@ $attributes['article-trixFields'] = request('article-trixFields');
 
 {!! $article->trixRichText()->where('field', 'content')->first()->content !!}
 ```
+
 </details>
 
 ### Eloquent relationships
 
 <details><summary>User</summary>
-- hasMany Articles
+- hasMany Articles  
 
 ```php
-
 // has many articles
 	public function articles()
 	{
@@ -383,7 +386,7 @@ $attributes['article-trixFields'] = request('article-trixFields');
 </details>
 <details><summary>Article</summary>
 
-- belongsTo one User
+- belongsTo one User  
 
 ```php
 //belongs to one user
@@ -392,7 +395,7 @@ public function user()
    return $this->belongsTo(User::class);
 }
 ```
-- belongsTo one Tag</summary>
+- belongsTo one Tag  
 ```php
 //belongs to many Tags
 public function tags()
@@ -417,13 +420,11 @@ public function articles()
 
 ### Middleware
 
-All users must be authenticated to view website - Laravel's `auth middleware` has been added to all controllers except the ones handling authorization.
+All users must be authenticated to view website - Laravel's `auth middleware` has been added to all controllers except the ones handling authorization.  
 
 <details><summary>Added middleware to check if user can view a profile - viewing profiles</summary>
-- hasMany Articles
 
 ```php
-
 <?php
 
 namespace App\Http\Middleware;

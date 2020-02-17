@@ -1,12 +1,14 @@
-@extends('./layouts.layout')
+@extends('layouts.layout-forms')
 
-@section('content')
+
+@section('footer')
 <header>
     <h2><strong><text class="fas fa-paw"> </text> Reset Password </strong></h2>
 </header>
+
     <div class="container" style="text-align: center;">
         <section>
-       
+
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}
@@ -35,6 +37,7 @@
                 </form>
                 
             </section>
+       
         </div>
-
+        
 @endsection

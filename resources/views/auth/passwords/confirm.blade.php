@@ -1,9 +1,12 @@
-@extends('layouts.layout')
-@section('content')
+@extends('layouts.layout-forms')
+
+@section('footer')
 <header>
     <h2><strong><text class="fas fa-paw"> </text> Confirm Password </strong></h2>
 </header>
+
 <div class="container" style="text-align: center;">
+
     <section>
         <label>{{ __('Please confirm your password before continuing.') }}</label>
         <form method="POST" action="{{ route('password.confirm') }}">
@@ -31,5 +34,7 @@
                 </div>
         </form>
     </section>
+
 </div>
+
 @endsection

@@ -6,22 +6,21 @@
 -->
 <html>
 <head>
-	<title>DogHaven</title>
+	<title>Strongly Typed by HTML5 UP</title>
 	<meta charset="utf-8" />
-
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="/assets/css/main.css" />
-	
+	<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
 	@trixassets
 </head>
 <body class="homepage is-preload">
 	<div id="page-wrapper">
-		<section id="header">
-			<div class="container">
-			@yield('title')
-			<!--navigation-->
-
-			<nav id="nav" >
+		<section id="header" >
+			<div class="container-auth">
+				<nav id="nav" >
 					<ul>  
 						@guest
 						<li><a href="{{ route('login') }}"><span>{{ __('Login') }}</span></a></li>
@@ -65,13 +64,24 @@
 				</ul>
 			</nav>
 			
-
+			<div style="background-color: #eb9e98; font-weight: bold;" >
+			  	@if($errors->any())
+	                @foreach($errors->all() as $error)
+	                {{$error}}
+	                @endforeach
+	            @endif	
+			</div>			
 		</section>
-		
 		@yield('body')
 		</div>
+		<!-- Footer -->
+		<section id="footer">
+			<div class="container">
+				@yield('footer')
+				@yield('form')
+			</div>
+		</section>
 	</div>
-
 	<!-- Scripts -->
 	<script src="/assets/js/jquery.min.js"></script>
 	<script src="/assets/js/jquery.dropotron.min.js"></script>
@@ -79,11 +89,7 @@
 	<script src="/assets/js/breakpoints.min.js"></script>
 	<script src="/assets/js/util.js"></script>
 	<script src="/assets/js/main.js"></script>
-</body>
-<section id="footer">
-	@yield('form')
-	@yield('footer')
-    
-</section>
+	</body>
+	
 
 </html>	

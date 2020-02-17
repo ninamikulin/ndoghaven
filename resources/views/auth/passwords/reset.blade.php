@@ -1,5 +1,6 @@
-@extends('layouts.layout-auth')
-@section('content')
+@extends('layouts.layout-forms')
+
+@section('footer')
 <header>
     <h2><strong><text class="fas fa-paw"> </text> Reset password </strong></h2>
 </header>

@@ -1,10 +1,12 @@
-@extends('layouts.layout-auth')
+@extends('layouts.layout-forms')
 
-@section('content')
+@section('footer')
 <header>
     <h2><strong><text class="fas fa-paw"> </text> Register </strong></h2>
 </header>
+
  <div class="container" style="text-align: center;">
+
     <section>
         <form method="POST" action="{{ route('register') }}">
         @csrf
@@ -49,5 +51,7 @@
          </div>
         </form>
     </section>
+
 </div>
+
 @endsection

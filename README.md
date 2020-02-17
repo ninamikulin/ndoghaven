@@ -246,6 +246,7 @@ public function destroy(Article $article)
 </div>
 ```
 </details>
+
 ### Image resizing and cropping
 
 For image resizing and cropping the [Intervention Image library](http://image.intervention.io/getting_started/installation) was used. 

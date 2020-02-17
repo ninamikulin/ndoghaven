@@ -47,7 +47,9 @@ Create basic Laravel auth:
 ## SomeRandomApi
 
 <details><summary>returns a random dog fact every time the homepage is loaded</summary>
+
 ```php
+
 // /app/Http/Controllers/HomeController.php
 
 //calls the api and returns the content of the response
@@ -66,11 +68,13 @@ public function getDogFact($method, $url)
 ```
 
 ```php
+
 // /app/Http/Controllers/HomeController.php
 
 // returns a random dog fact
 $dogFact = $this->getDogFact('GET', 'https://some-random-api.ml/facts/dog');
 ```
+
 </details>
 
 ## CRUD for Articles
@@ -81,7 +85,7 @@ To create a new article 2 `ArticleController` methods are used:
 - `create` -> returns view with form to create new article 
 
 <details> 
-<summary>`store` -> persists the new article in the DB  </summary>  
+<summary>  store -> persists the new article in the DB  </summary>  
 - validates the request attributes
 - resizes the images to thumbnail and banner size and saves them in the public folder
 - persists the new article in the DB
@@ -127,7 +131,7 @@ To create a new article 2 `ArticleController` methods are used:
 ### Read
 
 <details>
-<summary>view all articles - `HomeController`: </summary>
+<summary>view all articles - HomeController: </summary>
 
 ```php
 /app/Http/Controllers/HomeController.php
@@ -145,7 +149,7 @@ public function index()
 ```
 </details>
 <details>
-<summary>show  article - `ArticleController`</summary>
+<summary>show  article - ArticleController</summary>
 
 ```php
 /app/Http/Controllers/ArticleController.php
@@ -175,7 +179,7 @@ To create a new article 2 `ArticleController` methods are used:
 - `edit` -> returns view with form to edit an existing article
 
 <details> 
-<summary>`update` -> persists the changes to the article</summary>  
+<summary> update -> persists the changes to the article</summary>  
 - validates the request attributes
 - resizes the images to thumbnail and banner size and saves them in the public folder
 - persists the new article in the DB
@@ -206,7 +210,8 @@ To create a new article 2 `ArticleController` methods are used:
 ### Delete
 
 <details> 
-<summary>`destroy`-> deletes the record from the DB</summary>
+<summary>destroy-> deletes the record from the DB</summary>
+
 ```php
 /app/Http/Controllers/ArticleController.php
 public function destroy(Article $article)
@@ -216,8 +221,10 @@ public function destroy(Article $article)
         return redirect('/home');
     }
  ```
-</details><details>
-<summary>Modal to confirm delete</summary>
+</details>
+
+<details><summary>Modal to confirm delete</summary>
+
 ```html 
 /resources/views/articles/show.blade.php
 
@@ -245,12 +252,15 @@ public function destroy(Article $article)
     </ul>
 </div>
 ```
+
 </details>
 
 ### Image resizing and cropping
 
 For image resizing and cropping the [Intervention Image library](http://image.intervention.io/getting_started/installation) was used. 
-<details><summary> `resize` method</summary>
+
+<details><summary> resize method</summary>
+
 ```php
 // /app/Http/Controllers/ArticleController.php
 use Intervention\Image\Facades\Image;
@@ -264,7 +274,9 @@ public function resizeImage($path, $width, $height)
 	});
 } 
 ```
-</details><details><summary> `crop` method</summary>
+</details>
+<details><summary> crop method</summary>
+
 ```php
 // /app/Http/Controllers/ArticleController.php
 use Intervention\Image\Facades\Image;
@@ -276,7 +288,10 @@ public function cropImage($path, $width, $height)
 	return $img->crop($width,$height);
 	}
 ```
-</details><details><summary>Resize and crop image when creating new article</summary>
+
+</details>
+<details><summary>Resize and crop image when creating new article</summary>
+
 ```php
 /app/Http/Controllers/ArticleController.php
 
@@ -313,12 +328,14 @@ public function cropImage($path, $width, $height)
     }
 ```
 </details>
+
 ### Rich text editor
 
 For image resizing and cropping the [Trix Editor](https://github.com/Te7a-Houdini/laravel-trix) was used. 
 
 <details>
 <summary>Create a trix rich text field</summary>
+
 ```html
 <!-- /resources/views/articles/create.blade.php -->
 
@@ -327,16 +344,20 @@ For image resizing and cropping the [Trix Editor](https://github.com/Te7a-Houdin
    <trix-editor class="trix-content" input="trix-content" id="trix-content"></trix-editor>                        
 </div>
 ```
-</details><details>
+</details>
+<details>
 <summary>Store the content of the field as rich text</summary>
+
 ```php
 // /app/Http/Controllers/ArticleController.php
 // setting the attribute before creating a new article
 
 $attributes['article-trixFields'] = request('article-trixFields');
 ```
-</details><details>
+</details>
+<details>
 <summary>Display the content of the field as rich text</summary>
+
 ```html
 <!-- /resources/views/articles/show.blade.php-->
 <!-- setting the attribute before creating a new article-->
@@ -349,6 +370,7 @@ $attributes['article-trixFields'] = request('article-trixFields');
 
 <details><summary>User</summary>
 - hasMany Articles
+
 ```php
 
 // has many articles
@@ -360,7 +382,9 @@ $attributes['article-trixFields'] = request('article-trixFields');
 ```
 </details>
 <details><summary>Article</summary>
+
 - belongsTo one User
+
 ```php
 //belongs to one user
 public function user()
@@ -379,7 +403,8 @@ public function tags()
 
 </details>
 <details><summary>Tag</summary>
-- hasMany Articles</summary>
+- hasMany Articles
+
 ```php
 // belongs to many articles
 public function articles()
@@ -395,8 +420,10 @@ public function articles()
 All users must be authenticated to view website - Laravel's `auth middleware` has been added to all controllers except the ones handling authorization.
 
 <details><summary>Added middleware to check if user can view a profile - viewing profiles</summary>
-- hasMany Articles</summary>
+- hasMany Articles
+
 ```php
+
 <?php
 
 namespace App\Http\Middleware;
@@ -417,7 +444,6 @@ class checkIfAdminOrAuthUser
           if ($request->user()->isAdmin() | $request->route('user')->id === auth()->id()) 
       {
           return $next($request);
-
       } else{
           abort(403, 'Unauthorized action.');
       }
@@ -426,10 +452,10 @@ class checkIfAdminOrAuthUser
 ```
 </details>
 
-
 ### Policy
 
 <details><summary>Article policy -> only auth users and admin can edit and delete an article</summary>
+
 ```php
 <?php
 
@@ -456,5 +482,7 @@ class ArticlePolicy
     }
 
 
-}```
+}
+```
 </details>
+

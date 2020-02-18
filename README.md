@@ -10,8 +10,9 @@
     iv. [DELETE](#delete) 
 5. [Image resizing and cropping](#image-resizing-and-cropping)
 6. [Rich text editor](#rich-text-editor)
-7. [Middleware](#middleware)
-8. [Policy](#policy)
+7. [Eloquent relationships](#eloquent-relationships)
+8. [Middleware](#middleware)
+9. [Policy](#policy)
    
 
 ## About 

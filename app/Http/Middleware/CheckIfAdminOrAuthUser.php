@@ -15,7 +15,6 @@ class checkIfAdminOrAuthUser
      */
     public function handle($request, Closure $next)
     {
-        //dd($request->route('user')->articles);
         if ($request->user()->isAdmin() | $request->route('user')->id === auth()->id()) 
         {
             return $next($request);
@@ -23,6 +22,5 @@ class checkIfAdminOrAuthUser
         } else{
             abort(403, 'Unauthorized action.');
         }
-        
     }
 }

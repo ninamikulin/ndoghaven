@@ -21,6 +21,4 @@ class ArticlePolicy
     {
         return $article->user_id === $user->id;
     }
-
-
 }

@@ -447,11 +447,11 @@ class checkIfAdminOrAuthUser
 {
   if ($request->user()->isAdmin() | $request->route('user')->id === auth()->id()) 
   {
-      return $next($request);
+    return $next($request);
 
   } else {
 
-      abort(403, 'Unauthorized action.');
+    abort(403, 'Unauthorized action.');
   }
 }
 ```
@@ -483,7 +483,7 @@ class ArticlePolicy
    */
   public function update(User $user, Article $article)
   {
-      return $article->user_id === $user->id;
+    return $article->user_id === $user->id;
   }
 }
 ```

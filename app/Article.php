@@ -15,9 +15,9 @@ class Article extends Model
      *
      * @var array
      */
-    protected $guarded = [];
 
-    
+    // mass assignable attributes->all
+    protected $guarded = [];
 
     //---------------------------
     // RELATIONSHIPS
@@ -28,6 +28,7 @@ class Article extends Model
     {
     	return $this->belongsTo(User::class);
     }
+
     //belongs to many Tags
     public function tags()
     {

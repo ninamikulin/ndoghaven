@@ -4,7 +4,7 @@
 2. [Basic Laravel Auth](#basic-laravel-auth)   
 3. [Integrating HTML5up template](#integrating-html5up-template)  
 4. [CRUD for Articles](#crud-for-articles)  
-	i. [CREATE](#create)  
+  i. [CREATE](#create)  
     ii. [READ](#read)  
     iii. [UPDATE](#update)  
     iv. [DELETE](#delete) 
@@ -54,17 +54,16 @@ Create basic Laravel auth:
 
 //calls the api and returns the content of the response
 public function getDogFact($method, $url)
-    {
-        //create new Guzzle Client
-        $client=new Client;
+{
+  //create new Guzzle Client
+  $client = new Client;
 
-        //make the request
-        $response = $client->request($method, $url);
+  //make the request
+  $response = $client->request($method, $url);
 
-        //return the content of the response
-        return json_decode($response->getBody()->getContents())->fact;
-    }
-
+  //return the content of the response
+  return json_decode($response->getBody()->getContents())->fact;
+}
 ```
 
 ```php
@@ -94,36 +93,36 @@ To create a new article 2 `ArticleController` methods are used:
 // /app/Http/Controllers/ArticleController.php
 
 // persists new article 
-    public function store(Request $request)
-    {
-    	// server side validation
-        $this->validateImage();
-    	$attributes=$this->validateAttributes();
+public function store(Request $request)
+{
+  // server side validation
+  $this->validateImage();
+  $attributes=$this->validateAttributes();
 
-        // set image name
-        $imgName= time() .'.'.  $request->image_path->extension();
-        $bannerPath = '/images/banners/';
-        $thumbPath = '/images/thumbs/';
-    	
-    	// resize, crop, save banner
-    	$imgBanner = $this->resizeImage($request->file('image_path'), 784, null);
-    	$this->cropImage($imgBanner, 784,303)->save(public_path($bannerPath) . $imgName, 100);
+  // set image name
+  $imgName = time() . '.' .  $request->image_path->extension();
+  $bannerPath = '/images/banners/';
+  $thumbPath = '/images/thumbs/';
+  
+  // resize, crop, save banner
+  $imgBanner = $this->resizeImage($request->file('image_path'), 784, null);
+  $this->cropImage($imgBanner, 784, 303)->save(public_path($bannerPath) . $imgName, 100);
 
-        // resize, crop, save thumbnail
-    	$imgThumb = $this->resizeImage($request->file('image_path'), 368, null);
-		$this->cropImage($imgThumb, 368,234)->save(public_path($thumbPath) . $imgName, 100);
-     	
-     	// set additional attributes for Article model instance
-    	$attributes['banner_image_path'] = $bannerPath . $imgName;
-    	$attributes['thumb_image_path'] =  $thumbPath . $imgName;
-    	$attributes['user_id'] = auth()->user()->id;
-    	$attributes['article-trixFields'] = request('article-trixFields');
+    // resize, crop, save thumbnail
+  $imgThumb = $this->resizeImage($request->file('image_path'), 368, null);
+  $this->cropImage($imgThumb, 368, 234)->save(public_path($thumbPath) . $imgName, 100);
+  
+  // set additional attributes for Article model instance
+  $attributes['banner_image_path'] = $bannerPath . $imgName;
+  $attributes['thumb_image_path'] =  $thumbPath . $imgName;
+  $attributes['user_id'] = auth()->user()->id;
+  $attributes['article-trixFields'] = request('article-trixFields');
 
-    	// persist the article
-    	Article::create($attributes);
+  // persist the article
+  Article::create($attributes);
 
-    	return redirect('/home');
-    }
+  return redirect('/home');
+}
 ```
 
 </details>
@@ -137,15 +136,15 @@ To create a new article 2 `ArticleController` methods are used:
 // /app/Http/Controllers/HomeController.php
 
 public function index()
-    {   
-        // calls the api to return a random dog fact
-        $dogFact = $this->getDogFact('GET', 'https://some-random-api.ml/facts/dog');
-		
-        // returns all the articles ordered by most recent and paginates the results
-        $articles = Article::latest()->simplePaginate(9);
-        
-        return view('home', ['dogFact'=> $dogFact, 'articles'=>$articles]);
-    }
+{   
+  // calls the api to return a random dog fact
+  $dogFact = $this->getDogFact('GET', 'https://some-random-api.ml/facts/dog');
+
+  // returns all the articles ordered by most recent and paginates the results
+  $articles = Article::latest()->simplePaginate(9);
+  
+  return view('home', ['dogFact' => $dogFact, 'articles' => $articles]);
+}
 ```
 </details>
 <details>
@@ -156,9 +155,9 @@ public function index()
 
 // shows article
 public function show(Article $article)
-    {
-    	return view('articles.show', ['article'=>$article]);
-    }
+{
+  return view('articles.show', ['article' => $article]);
+}
 ```
 </details>
 <details>
@@ -167,7 +166,7 @@ public function show(Article $article)
 ```html
 @if (!empty($articles->links()))
 <div class="mt-3">
-	<div>{{ $articles->links() }}</div>
+  <div>{{ $articles->links() }}</div>
 <div>
 @endif
 ```
@@ -192,20 +191,20 @@ To create a new article 2 `ArticleController` methods are used:
 // /app/Http/Controllers/ArticleController.php 
 
 // updates the Article model instance
-    public function update(Article $article)
-    {
-    	// server side validation
-    	$attributes=$this->validateAttributes();
-     	
-     	// setting additional attributes for Article model
-    	$attributes['user_id'] = auth()->user()->id;
-    	$attributes['article-trixFields'] = request('article-trixFields');
+public function update(Article $article)
+{
+  // server side validation
+  $attributes=$this->validateAttributes();
+  
+  // setting additional attributes for Article model
+  $attributes['user_id'] = auth()->user()->id;
+  $attributes['article-trixFields'] = request('article-trixFields');
 
-        //update article
-    	$article->update($attributes);
-    	
-    	return view('articles.show', ['article'=>$article]);
-    }
+  //update article
+  $article->update($attributes);
+  
+  return view('articles.show', ['article' => $article]);
+}
 ```
 
 </details>
@@ -218,11 +217,11 @@ To create a new article 2 `ArticleController` methods are used:
 ```php
 // /app/Http/Controllers/ArticleController.php
 public function destroy(Article $article)
-    {
-    	$article->delete();
-        
-        return redirect('/home');
-    }
+{
+  $article->delete();
+    
+  return redirect('/home');
+}
  ```
 </details>
 
@@ -237,22 +236,23 @@ public function destroy(Article $article)
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 
 <!-- Button to open modal -->
+@can('update', $article)
 <a href="#ex1" rel="modal:open"><button type="link">Delete</button></a>
-            @endcan('update', $post)
+@endcan('update', $post)
 
 <!-- Modal HTML embedded directly into document -->
 <div id="ex1" class="modal" >
-    <p>Are you sure you want to delete this article?</p>
-    <ul class="actions">
+  <p>Are you sure you want to delete this article?</p>
+  <ul class="actions">
     <li> <a href="#" rel="modal:close"><button type="link">No, go back.</button></a></li>
     <li> 
-        <form method="POST" action="/articles/{{$article->id}}">
+        <form method="POST" action="/articles/{{ $article->id }}">
         @method('DELETE')
         @csrf
         <button type="submit" class="btn btn-primary">Delete</button>
         </form>
     </li>
-    </ul>
+  </ul>
 </div>
 ```
 
@@ -271,10 +271,10 @@ use Intervention\Image\Facades\Image;
 //resize image
 public function resizeImage($path, $width, $height)
 {
-	$img = Image::make($path);
-	return $img->resize($width,$height, function ($constraint) {
-	$constraint->aspectRatio();
-	});
+  $img = Image::make($path);
+  return $img->resize($width, $height, function ($constraint) {
+    $constraint->aspectRatio();
+    });
 } 
 ```
 </details>
@@ -286,10 +286,10 @@ use Intervention\Image\Facades\Image;
 
 //crop image
 public function cropImage($path, $width, $height)
-	{
-	$img = Image::make($path);
-	return $img->crop($width,$height);
-	}
+{
+$img = Image::make($path);
+return $img->crop($width, $height);
+}
 ```
 
 </details>
@@ -299,36 +299,36 @@ public function cropImage($path, $width, $height)
 // /app/Http/Controllers/ArticleController.php
 
 // persists new article 
-    public function store(Request $request)
-    {
-    	// server side validation
-        $this->validateImage();
-    	$attributes=$this->validateAttributes();
+public function store(Request $request)
+{
+  // server side validation
+  $this->validateImage();
+  $attributes = $this->validateAttributes();
 
-        //set image name
-        $imgName= time() .'.'.  $request->image_path->extension();
-        $bannerPath = '/images/banners/';
-        $thumbPath = '/images/thumbs/';
-    	
-    	//resize, crop, save banner
-    	$imgBanner = $this->resizeImage($request->file('image_path'), 784, null);
-    	$this->cropImage($imgBanner, 784,303)->save(public_path($bannerPath) . $imgName, 100);
+  //set image name
+  $imgName = time() . '.' . $request->image_path->extension();
+  $bannerPath = '/images/banners/';
+  $thumbPath = '/images/thumbs/';
+  
+  //resize, crop, save banner
+  $imgBanner = $this->resizeImage($request->file('image_path'), 784, null);
+  $this->cropImage($imgBanner, 784, 303)->save(public_path($bannerPath) . $imgName, 100);
 
-        //resize, crop, save thumbnail
-    	$imgThumb = $this->resizeImage($request->file('image_path'), 368, null);
-		$this->cropImage($imgThumb, 368,234)->save(public_path($thumbPath) . $imgName, 100);
-     	
-     	// set additional attributes for Article model instance
-    	$attributes['banner_image_path'] = $bannerPath . $imgName;
-    	$attributes['thumb_image_path'] =  $thumbPath . $imgName;
-    	$attributes['user_id'] = auth()->user()->id;
-    	$attributes['article-trixFields'] = request('article-trixFields');
+    //resize, crop, save thumbnail
+  $imgThumb = $this->resizeImage($request->file('image_path'), 368, null);
+  $this->cropImage($imgThumb, 368, 234)->save(public_path($thumbPath) . $imgName, 100);
+  
+  // set additional attributes for Article model instance
+  $attributes['banner_image_path'] = $bannerPath . $imgName;
+  $attributes['thumb_image_path'] =  $thumbPath . $imgName;
+  $attributes['user_id'] = auth()->user()->id;
+  $attributes['article-trixFields'] = request('article-trixFields');
 
-    	// persist the article
-    	Article::create($attributes);
+  // persist the article
+  Article::create($attributes);
 
-    	return redirect('/home');
-    }
+  return redirect('/home');
+}
 ```
 </details>
 
@@ -366,7 +366,7 @@ $attributes['article-trixFields'] = request('article-trixFields');
 <!-- /resources/views/articles/show.blade.php-->
 <!-- setting the attribute before creating a new article-->
 
-{!! $article->trixRichText()->where('field', 'content')->first()->content !!}
+{!! $article->trixRichText()->where('field', 'content')->first()->content !! }
 ```
 
 </details>
@@ -379,10 +379,9 @@ $attributes['article-trixFields'] = request('article-trixFields');
 
 ```php
 // has many articles
-	public function articles()
-	{
-		return $this->hasMany(Article::class);
-	}
+public function articles()
+{
+  return $this->hasMany(Article::class);
 }
 ```
 </details>
@@ -394,7 +393,7 @@ $attributes['article-trixFields'] = request('article-trixFields');
 // belongs to one user
 public function user()
 {
-   return $this->belongsTo(User::class);
+  return $this->belongsTo(User::class);
 }
 ```
 
@@ -403,7 +402,7 @@ public function user()
 //belongs to many Tags
 public function tags()
 {
-   return $this->belongsTo(Tag::class);
+  return $this->belongsTo(Tag::class);
 }
 ```
 
@@ -416,7 +415,7 @@ public function tags()
 // belongs to many articles
 public function articles()
 {
-	return $this->hasMany(Article::class);
+  return $this->hasMany(Article::class);
 }
 ```
 </details>
@@ -445,13 +444,14 @@ class checkIfAdminOrAuthUser
 * @return mixed
 */
  public function handle($request, Closure $next)
-      {
-          if ($request->user()->isAdmin() | $request->route('user')->id === auth()->id()) 
-      {
-          return $next($request);
-      } else{
-          abort(403, 'Unauthorized action.');
-      }
+{
+  if ($request->user()->isAdmin() | $request->route('user')->id === auth()->id()) 
+  {
+      return $next($request);
+
+  } else {
+
+      abort(403, 'Unauthorized action.');
   }
 }
 ```
@@ -472,21 +472,19 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ArticlePolicy
 {
-    use HandlesAuthorization;
+  use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can update the article.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Article  $article
-     * @return mixed
-     */
-    public function update(User $user, Article $article)
-    {
-        return $article->user_id === $user->id;
-    }
-
-
+  /**
+   * Determine whether the user can update the article.
+   *
+   * @param  \App\User  $user
+   * @param  \App\Article  $article
+   * @return mixed
+   */
+  public function update(User $user, Article $article)
+  {
+      return $article->user_id === $user->id;
+  }
 }
 ```
 </details>

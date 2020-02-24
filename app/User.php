@@ -42,7 +42,7 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        if ($this->id== 1)
+        if ($this->id == 1)
         {
             return true;
         }
@@ -57,5 +57,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Article::class);
     }
-
 }

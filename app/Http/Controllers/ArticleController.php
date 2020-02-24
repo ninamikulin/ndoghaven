@@ -10,14 +10,10 @@ use Intervention\Image\Facades\Image;
 
 class ArticleController extends Controller
 {
-
     public function __construct()
     {
-        $this->middleware('auth');
-       
-
+        $this->middleware('auth');      
     }
-
     
     //----------------------------------
     // CRUD
@@ -26,29 +22,28 @@ class ArticleController extends Controller
     // returns view with form to create new article
     public function create()
     {	
-    	return view('articles.create', ['tags' =>Tag::all()]);
+    	return view('articles.create', ['tags' => Tag::all()]);
     }
-
 
     // persists new article 
     public function store(Request $request)
     {
     	// server side validation
         $this->validateImage();
-    	$attributes=$this->validateAttributes();
+    	$attributes = $this->validateAttributes();
 
         //set image name
-        $imgName= time() .'.'.  $request->image_path->extension();
+        $imgName = time() . '.' . $request->image_path->extension();
         $bannerPath = '/images/banners/';
         $thumbPath = '/images/thumbs/';
     	
     	//resize, crop, save banner
     	$imgBanner = $this->resizeImage($request->file('image_path'), 784, null);
-    	$this->cropImage($imgBanner, 784,303)->save(public_path($bannerPath) . $imgName, 100);
+    	$this->cropImage($imgBanner, 784, 303)->save(public_path($bannerPath) . $imgName, 100);
 
         //resize, crop, save thumbnail
     	$imgThumb = $this->resizeImage($request->file('image_path'), 368, null);
-		$this->cropImage($imgThumb, 368,234)->save(public_path($thumbPath) . $imgName, 100);
+		$this->cropImage($imgThumb, 368, 234)->save(public_path($thumbPath) . $imgName, 100);
      	
      	// set additional attributes for Article model instance
     	$attributes['banner_image_path'] = $bannerPath . $imgName;
@@ -62,26 +57,22 @@ class ArticleController extends Controller
     	return redirect('/home');
     }
 
-	
 	// shows article
     public function show(Article $article)
     {
-    	return view('articles.show',['article'=>$article]);
+    	return view('articles.show', ['article' => $article]);
     }
 
     // returns form to create new article
     public function edit(Article $article)
     {   
-
     	$this->authorize('update', $article);
-        return view('articles.edit', ['article'=>$article,'tags' =>Tag::all()]);
+        return view('articles.edit', ['article' => $article, 'tags' => Tag::all()]);
     }
-
 
     // updates the Article model instance
     public function update(Article $article)
-    {
-    	
+    {	
     	// server side validation
     	$attributes=$this->validateAttributes();
      	
@@ -92,17 +83,17 @@ class ArticleController extends Controller
         //update article
     	$article->update($attributes);
     	
-    	return view('articles.show', ['article'=>$article]);
+    	return view('articles.show', ['article' => $article]);
 
     }
 
+     // deletes the instance from the DB
     public function destroy(Article $article)
     {
     	$article->delete();
         
         return redirect('/home');
     }
-
 
     //----------------------------------
     // HELPERS
@@ -112,9 +103,9 @@ class ArticleController extends Controller
     public function validateAttributes()
     {	
         return request()->validate([
-            'title'=> 'required',
+            'title' => 'required',
             'excerpt' => 'required',
-            'tag_id'=>'required'
+            'tag_id' => 'required'
             ]);
     }   
 
@@ -124,20 +115,19 @@ class ArticleController extends Controller
         return request()->validate(['image_path' => 'required|mimes:jpeg,png,jpg,bmp|dimensions:min_width=784,min_height=234']);
     }
 
-    //resize image
+    // resize image
     public function resizeImage($path, $width, $height)
     {
     	$img = Image::make($path);
-    	return $img->resize($width,$height, function ($constraint) {
+    	return $img->resize($width, $height, function ($constraint) {
     		$constraint->aspectRatio();
     		});
     } 
 
-    //crop image
+    // crop image
     public function cropImage($path, $width, $height)
     {
     	$img = Image::make($path);
-        return $img->crop($width,$height);
+        return $img->crop($width, $height);
     }
-
 }

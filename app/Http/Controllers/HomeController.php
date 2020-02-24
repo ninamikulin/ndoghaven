@@ -19,25 +19,23 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+    // shows the homepage
     public function index()
     {   
-        
+        // makes request to get random dog fact
         $dogFact = $this->getDogFact('GET', 'https://some-random-api.ml/facts/dog');
 
+        // fetches the articles from the DB
         $articles = Article::latest()->simplePaginate(9);
         
-        return view('home', ['dogFact'=> $dogFact, 'articles'=>$articles]);
+        return view('home', ['dogFact' => $dogFact, 'articles' => $articles]);
     }
 
+    // makes request and returns string
     public function getDogFact($method, $url)
     {
         //create new Guzzle Client
-        $client=new Client;
+        $client = new Client;
 
         //make the request
         $response = $client->request($method, $url);

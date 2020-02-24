@@ -8,10 +8,8 @@
 <head>
 	<title>DogHaven</title>
 	<meta charset="utf-8" />
-
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="/assets/css/main.css" />
-	
+	<link rel="stylesheet" href="/assets/css/main.css" />	
 	@trixassets
 </head>
 <body class="homepage is-preload">
@@ -20,8 +18,7 @@
 			<div class="container">
 			@yield('title')
 			<!--navigation-->
-
-			<nav id="nav" >
+				<nav id="nav" >
 					<ul>  
 						@guest
 						<li><a href="{{ route('login') }}"><span>{{ __('Login') }}</span></a></li>
@@ -31,27 +28,22 @@
 						@endif
 						@else
 						<li><a href="/home" class="icon solid fa-home"><span>Home</span></a>
-							<ul>
-								
+							<ul>	
 								<li><a href="/articles/create">New Article</a></li>
 							</ul>
-
 						</li>
-						
 						<li><a href="/categories/random" class="icon solid fa-paw"><span>Random</span></a>
 						<li><a href="/categories/training" class="icon solid fa-dog"><span>Training</span></a>
 						</li>
 						<li><a href="/categories/nutrition" class="icon solid fa-bone"><span>Nutrition</span></a>
 						</li>
 						<li><a href="/categories/grooming" class="icon solid fa-cut"><span>Grooming</span></a>
-						</li>
-						
+						</li>	
 						<li>
-
 							<a href="#" class="icon solid fa-user-alt"><span>{{ Auth::user()->name }}</span></a>
 							<ul>
-								<li><a href="/profile/{{auth()->id()}}">My Profile</a></li>
-								<li><a href="/profile/{{auth()->id()}}/articles">My Articles</a></li>
+								<li><a href="/profile/{{ auth()->id() }}">My Profile</a></li>
+								<li><a href="/profile/{{ auth()->id() }}/articles">My Articles</a></li>
 								<li><a href="{{ route('logout') }}" onclick="event.preventDefault();
 						                 document.getElementById('logout-form').submit();"> 
 						             {{ __('Logout') }}</a>
@@ -62,16 +54,12 @@
 							</ul>
 						</li>
 					@endguest
-				</ul>
-			</nav>
-			
-
-		</section>
-		
+					</ul>
+				</nav>		
+			</section>		
 		@yield('body')
 		</div>
 	</div>
-
 	<!-- Scripts -->
 	<script src="/assets/js/jquery.min.js"></script>
 	<script src="/assets/js/jquery.dropotron.min.js"></script>
@@ -83,7 +71,5 @@
 <section id="footer">
 	@yield('form')
 	@yield('footer')
-    
 </section>
-
 </html>	

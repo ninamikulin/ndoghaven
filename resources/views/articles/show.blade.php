@@ -12,10 +12,8 @@
             <span class="image featured"><img src="{{ $article->banner_image_path }}" alt="" /></span>
             {!! $article->trixRichText()->where('field', 'content')->first()->content !!}
             <br>
-            @can('update', $article)
             <a href="/articles/{{ $article->id }}/edit"> <button type="link">Edit</button></a>
             <a href="#ex1" rel="modal:open"><button type="link">Delete</button></a>
-            @endcan('update', $post)
         </article>
     </div>
 </div>

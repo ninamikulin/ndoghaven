@@ -97,7 +97,7 @@ public function store(Request $request)
 {
   // server side validation
   $this->validateImage();
-  $attributes=$this->validateAttributes();
+  $attributes = $this->validateAttributes();
 
   // set image name
   $imgName = time() . '.' .  $request->image_path->extension();
